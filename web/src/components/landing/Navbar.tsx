@@ -3,24 +3,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const TOKEN = "8PzFWyLpCVEmbZmVJcaRTU5r69XKJx1rd7YGpWvnpump";
-const TOKEN_SHORT = TOKEN.slice(0, 4) + "..." + TOKEN.slice(-4);
-
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const copyToken = () => {
-    navigator.clipboard.writeText(TOKEN);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
-  };
 
   return (
     <nav
@@ -41,32 +31,10 @@ export function Navbar() {
           </span>
         </div>
 
-        {/* Center: Token address */}
-        <button
-          onClick={copyToken}
-          className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-md border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] hover:bg-white/[0.04] transition-all group"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[var(--green)] shadow-[0_0_4px_var(--green)]" />
-          <span className="text-[11px] mono text-[var(--text-2)] group-hover:text-[var(--text-1)] transition-colors">
-            $PERCOLATOR
-          </span>
-          <span className="text-[10px] mono text-[var(--text-3)]">
-            {copied ? "Copied!" : TOKEN_SHORT}
-          </span>
-        </button>
-
         {/* Right */}
         <div className="flex items-center gap-5">
           <a
-            href={`https://pump.fun/coin/${TOKEN}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:block text-[12px] font-medium text-[var(--text-3)] hover:text-[var(--text-1)] transition-colors"
-          >
-            Token
-          </a>
-          <a
-            href="https://github.com"
+            href="https://github.com/itsdaboy/percolator"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:block text-[12px] font-medium text-[var(--text-3)] hover:text-[var(--text-1)] transition-colors"
